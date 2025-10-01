@@ -176,16 +176,16 @@ Dengan mengikuti TCP stream, Wireshark menyatukan semua paket yang membentuk sat
 What is the hash of the first file (q.exe)?
 Format: sha256
 ##### Penyelesaian 1
-Use display filter.
+Gunakan display filter berikut :
 ```c
 _ws.col.info == "FTP Data: 1274 bytes (PASV) (SIZE q.exe)"
 ```
-If we look at the "Follow TCP Stream", it shows like this
+Isi dari “Follow -> TCP Stream”, tampilannya seperti ini
 ![assets/s16d1.png](assets/s16d1.png)
 ##### Penyelesaian 2
-Follow > TCP Stream > Save as raw, name it q16
+Klik Follow -> TCP Stream -> Save as raw, beri nama file q16
 ##### Penyelesaian 3
-Do hash sha256, with the command:
+Hitung hash SHA-256 dari file q16 menggunakan command:
 ```c
 sha256sum q16
 ```
@@ -199,16 +199,16 @@ ca34b0926cdc3242bbfad1c4a0b42cc2750d90db9a272d92cfb6cb7034d2a3bd
 What is the hash of the first file (w.exe)?
 Format: sha256
 ##### Penyelesaian 1
-Use display filter.
+Gunakan display filter berikut :
 ```c
 _ws.col.info == "FTP Data: 1274 bytes (PASV) (SIZE w.exe)"
 ```
-If we look at the "Follow TCP Stream", it shows like this
+Isi dari “Follow -> TCP Stream”, tampilannya seperti ini
 ![assets/s16e1.png](assets/s16e1.png)
 ##### Penyelesaian 2
-Follow > TCP Stream > Save as raw, name it w16
+Klik Follow -> TCP Stream -> Save as raw, beri nama file w16
 ##### Penyelesaian 3
-Do hash sha256, with the command:
+Hitung hash SHA-256 dari file w16 menggunakan command:
 ```c
 sha256sum w16
 ```
@@ -222,16 +222,16 @@ sha256sum w16
 What is the hash of the first file (e.exe)?
 Format: sha256
 ##### Penyelesaian 1
-Use display filter.
+Gunakan display filter berikut :
 ```c
 _ws.col.info == "FTP Data: 1274 bytes (PASV) (SIZE e.exe)"
 ```
-If we look at the "Follow TCP Stream", it shows like this
+Isi dari “Follow -> TCP Stream”, tampilannya seperti ini
 ![assets/s16f1.png](assets/s16f2.png)
 ##### Penyelesaian 2
-Follow > TCP Stream > Save as raw, name it e16
+Klik Follow -> TCP Stream -> Save as raw, beri nama file e16
 ##### Penyelesaian 3
-Do hash sha256, with the command:
+Hitung hash SHA-256 dari file e16 menggunakan command:
 ```c
 sha256sum e16
 ```
@@ -245,16 +245,16 @@ sha256sum e16
 What is the hash of the first file (r.exe)?
 Format: sha256
 ##### Penyelesaian 1
-Use display filter.
+Gunakan display filter berikut :
 ```c
 _ws.col.info == "FTP Data: 1274 bytes (PASV) (SIZE r.exe)"
 ```
-If we look at the "Follow TCP Stream", it shows like this
+Isi dari “Follow -> TCP Stream”, tampilannya seperti ini
 ![assets/s16g1.png](assets/s16g1.png)
 ##### Penyelesaian 2
-Follow > TCP Stream > Save as raw, name it r16
+FKlik Follow -> TCP Stream -> Save as raw, beri nama file r16
 ##### Penyelesaian 3
-Do hash sha256, with the command:
+Hitung hash SHA-256 dari file r16 menggunakan command:
 ```c
 sha256sum r16
 ```
@@ -268,16 +268,16 @@ sha256sum r16
 What is the hash of the first file (t.exe)?
 Format: sha256
 ##### Penyelesaian 1
-Use display filter.
+Gunakan display filter berikut :
 ```c
 _ws.col.info == "FTP Data: 1274 bytes (PASV) (SIZE t.exe)"
 ```
-If we look at the "Follow TCP Stream", it shows like this
+Isi dari “Follow -> TCP Stream”, tampilannya seperti ini
 ![assets/s16h1.png](assets/s16h1.png)
 ##### Penyelesaian 2
-Follow > TCP Stream > Save as raw, name it t16
+Klik Follow -> TCP Stream -> Save as raw, beri nama file t16
 ##### Penyelesaian 3
-Do hash sha256, with the command:
+Hitung hash SHA-256 dari file t16 menggunakan command:
 ```c
 sha256sum t16
 ```
