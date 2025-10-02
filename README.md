@@ -82,10 +82,7 @@ What device does Melkor use?
 Format: string
 ##### Penyelesaian 1
 Cari paket GET DESCRIPTOR Response tipe DEVICE. Perhatikan field yang bernama `iManufacturer, iProduct, atau iSerialNumber`. Dan dari situ, terdapat `iProduct: 2`
-![assets/s15q1.png](assets/s15q1.png)
-
 yang berarti nilai nama produknya berada pada indeks 2 dari **STRING DESCRIPTOR*** yang dikembalikan oleh response GET DESCRIPTOR.
-![assets/s15q1.png](assets/s15q1.png)
 #### Jawaban
 ```c
 Keyboard
