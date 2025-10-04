@@ -5,6 +5,52 @@
 |1. | Adiwidya Budi Pratama | 5027241012|
 |2. | Ni'mah Fauziyyah Atok | 5027241103|
 ---
+## Soal 1
+> Untuk mempersiapkan pembuatan entitas selain mereka, Eru yang berperan sebagai Router membuat dua Switch/Gateway. Dimana Switch 1 akan menuju ke dua Ainur yaitu Melkor dan Manwe. Sedangkan Switch 2 akan menuju ke dua Ainur lainnya yaitu Varda dan Ulmo. Keempat Ainur tersebut diberi perintah oleh Eru untuk menjadi Client.
+<img width="1268" height="779" alt="Screenshot 2025-10-04 124446" src="https://github.com/user-attachments/assets/0d579e31-581c-44d6-8e58-7c1d36f71531" />
+
+---
+## Soal 2
+> Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet.
+<img width="1130" height="492" alt="Screenshot 2025-10-04 122608" src="https://github.com/user-attachments/assets/4703fa0f-6f7f-4a0e-b647-cc578149e3d0" />
+
+---
+## Soal 3 - 4
+> Sekarang pastikan agar setiap Ainur (Client) dapat terhubung satu sama lain.
+> Setelah berhasil terhubung, sekarang Eru ingin agar setiap Ainur (Client) dapat mandiri. Oleh karena itu pastikan agar setiap Client dapat tersambung ke internet.
+<img width="1078" height="311" alt="Screenshot 2025-10-04 122706" src="https://github.com/user-attachments/assets/ef3b6558-36ba-4b60-9b9d-3471597879c4" />
+<img width="1100" height="544" alt="Screenshot 2025-10-04 122845" src="https://github.com/user-attachments/assets/d359e6c1-e6ca-4351-8151-e027dd34ba48" />
+<img width="1107" height="311" alt="Screenshot 2025-10-04 122931" src="https://github.com/user-attachments/assets/5c7a9798-72d1-4054-9a34-100132b54380" />
+<img width="965" height="194" alt="Screenshot 2025-10-04 124353" src="https://github.com/user-attachments/assets/8e932d36-8be2-4cff-8358-66938eb84f92" />
+
+---
+## Soal 5
+> Ainur terkuat Melkor tetap berusaha untuk menanamkan kejahatan ke dalam Arda (Bumi). Sebelum terjadi kerusakan, Eru dan para Ainur lainnya meminta agar semua konfigurasi tidak hilang saat semua node di restart.
+
+<img width="1130" height="492" alt="Screenshot 2025-10-04 122608" src="https://github.com/user-attachments/assets/25062362-56f5-4d4e-bcee-997ef0d6354d" />
+<img width="1107" height="576" alt="Screenshot 2025-09-29 210214" src="https://github.com/user-attachments/assets/43be6785-682d-4b7d-b709-a5fe641cec4c" />
+write this on `/root/.bashrc`
+
+---
+## Soal 6
+> Setelah semua Ainur terhubung ke internet, Melkor mencoba menyusup ke dalam komunikasi antara Manwe dan Eru. Jalankan file berikut (link file) lalu lakukan packet sniffing menggunakan Wireshark pada koneksi antara Manwe dan Eru, lalu terapkan display filter untuk menampilkan semua paket yang berasal dari atau menuju ke IP Address Manwe. Simpan hasil capture tersebut sebagai bukti.
+
+- in client Manwe
+```c
+wget --no-check-certificate "https://drive.google.com/uc?export=download&id=1bE3kF1Nclw0VyKq4bL2VtOOt53IC7lG5" -O traffic.zip
+
+unzip traffic.zip
+
+chmod +x traffic.zip
+```
+- go to wireshark
+start capture > manwe -> eru 
+```
+./traffic.sh
+```
+- stop capture
+
+---
 ## Soal 14
 ```c
 nc 10.15.43.32 3401
