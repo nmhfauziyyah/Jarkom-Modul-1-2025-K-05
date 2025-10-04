@@ -1,4 +1,4 @@
-# Jarkom-Modul-1-2025-K-05
+<img width="814" height="266" alt="Screenshot 2025-09-30 023123" src="https://github.com/user-attachments/assets/402fd5b9-ec7e-4c3e-a3f2-7dfa8010f781" /># Jarkom-Modul-1-2025-K-05
 
 |No|Nama anggota|NRP|
 |---|---|---|
@@ -49,6 +49,204 @@ start capture > manwe -> eru
 ./traffic.sh
 ```
 - stop capture
+<img width="725" height="218" alt="Screenshot 2025-10-04 130149" src="https://github.com/user-attachments/assets/e747e1fd-5834-4380-a947-b9d3e91147df" />
+<img width="1357" height="141" alt="Screenshot 2025-10-04 125750" src="https://github.com/user-attachments/assets/e4b425a5-a81b-4275-ae75-b4d32a682a56" />
+
+---
+## Soal 7
+> Untuk meningkatkan keamanan, Eru memutuskan untuk membuat sebuah FTP Server di node miliknya. Lakukan konfigurasi FTP Server pada node Eru. Buat dua user baru: ainur dengan hak akses write&read dan melkor tanpa hak akses sama sekali ke direktori shared. Buktikan hasil tersebut dengan membuat file teks sederhana kemudian akses file tersebut menggunakan kedua user.
+
+- in Eru
+```c
+apt install -y vsftpd
+mkdir -p shared
+adduser melkor
+adduser ainur
+
+apt install -y inetutils-ftp
+```
+- config di nano /etc/vsftpd.conf
+```c
+listen=YES
+listen_ipv6=NO
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=YES
+userlist_enable=YES
+userlist_file=/etc/vsftpd.user_list
+userlist_deny=YES
+
+// tambahin di akhir
+chroot_local_user=YES
+allow_writeable_chroot=YES
+```
+```
+ls
+service vsftpd start
+
+ftp localhost
+input : ainur:ainur
+```
+```
+*Eru
+chown ainur:ainur shared/
+chmod 700 shared/
+cd shared/
+```
+```
+su ainur
+touch punyainur.txt
+> su melkor
+touch coba.txt (denied)
+```
+<img width="689" height="555" alt="Screenshot 2025-10-04 131552" src="https://github.com/user-attachments/assets/92e0a9de-87b6-4b35-9df3-955a9b52109f" />
+
+---
+## Soal 8
+> Ulmo, sebagai penjaga perairan, perlu mengirimkan data ramalan cuaca ke node Eru. Lakukan koneksi sebagai client dari node Ulmo ke FTP Server Eru menggunakan user ainur. Upload sebuah file berikut (link file). Analisis proses ini menggunakan Wireshark dan identifikasi perintah FTP yang digunakan untuk proses upload.
+
+- node ulmo
+```c
+wget --no-check-certificate "https://docs.google.com/uc?export=download&id=11ra_yTV_adsPIXeIPMSt0vrxCBZu0r33" -O cuaca.zip
+apt update && apt install -y unzip
+unzip cuaca.zip
+```
+- in Eru
+```c
+service vsftpd start
+```
+*pastikan  config : local_enable=YES
+lalu restart service 
+
+- node Ulmo
+```c
+ftp 10.66.1.1
+login as ainur:ainur
+put cuaca.txt
+put mendung.jpg
+quit
+```
+<img width="1200" height="599" alt="Screenshot 2025-10-04 133140" src="https://github.com/user-attachments/assets/92a4d2a4-cb2a-40ac-8725-664186723d6d" />
+
+---
+## Soal 9
+> Eru ingin membagikan "Kitab Penciptaan" di (link file) kepada Manwe. Dari FTP Server Eru, download file tersebut ke node Manwe. Karena Eru merasa Kitab tersebut sangat penting maka ia mengubah akses user ainur menjadi read-only. Gunakan Wireshark untuk memonitor koneksi, identifikasi perintah FTP yang digunakan, dan uji akses user ainur.
+
+- node Eru
+```c
+wget --no-check-certificate "https://docs.google.com/uc?export=download&id=11ua2KgBu3MnHEIjhBnzqqv2RMEiJsILY" -O kitab_penciptaan.zip
+unzip kitab_penciptaan.zip > /srv/ftp/shared
+```
+- edit nano /etc/vsftpd.conf
+tambahkan "user_config_dir=/etc/vsftpd_user_conf"
+
+- config ftp buat user agar setiap kali ainur login → dia langsung masuk ke /srv/ftp/shared
+```
+mkdir -p /etc/vsftpd_user_conf
+nano /etc/vsftpd_user_conf/ainur
+Isi : 
+local_root=/srv/ftp/shared
+write_enable=NO
+download_enable=YES
+```
+- service vsftpd restart
+
+- Buka node Manwe
+```c
+ftp 10.66.1.1 > login ainur
+switch to binary untuk transfer file
+get kitab_penciptaan.txt (berhasil)
+put kitab_penciptaan.txt (permission denied)
+quit
+```
+<img width="996" height="491" alt="Screenshot 2025-09-30 225522" src="https://github.com/user-attachments/assets/2bf8aa73-1a05-4bf9-adb6-27969697cdc2" />
+<img width="1438" height="305" alt="image" src="https://github.com/user-attachments/assets/6ac3b38c-673a-4413-8c5f-c8acf41b3aa8" />
+
+---
+## Soal 10
+> Melkor yang marah karena tidak diberi akses, mencoba melakukan serangan dengan mengirimkan banyak sekali request ke server Eru. Gunakan command ping dari node Melkor ke node Eru dengan jumlah paket yang tidak biasa (spam ping misalnya 100 paket). Amati hasilnya, apakah ada packet loss? Catat average round trip time untuk melihat apakah serangan tersebut mempengaruhi kinerja Eru.
+- on Wireshark start capture Melkor -> Eru
+- node Melkor
+```c
+ping 10.66.1.1 -c 100
+```
+- Analyze if theres a packet loss
+<img width="892" height="322" alt="Screenshot 2025-09-30 234217" src="https://github.com/user-attachments/assets/6744df8a-b984-4443-8bd2-5782dd9ead67" />
+
+---
+## Soal 11
+> Sebelum era koneksi aman, Eru sering menyelinap masuk ke wilayah Melkor. Eru perlu masuk ke node tersebut untuk memeriksa konfigurasi, namun ia tahu Melkor mungkin sedang memantau jaringan. Buktikan kelemahan protokol Telnet dengan membuat akun dan password baru di node Melkor kemudian menangkap sesi login Eru ke node Melkor menggunakan Wireshark. Tunjukkan bagaimana username dan password dapat terlihat sebagai plain text.
+> node Melkor
+- installation
+```
+apt update && apt install openbsd-inetd telnetd -y
+```
+- confg inet
+```nano /etc/inetd.conf
+nyalakan standard service telnet
+""telnet  stream  tcp     nowait  root    /usr/sbin/tcpd  /usr/sbin/telnetd""
+```
+```
+service openbsd-inetd start
+adduser ninimm:ninim
+```
+- node Eru
+```
+telnet 10.66.1.2 [Prefix]
+login as ninim:ninim
+```
+- Analyze on wirehshark
+- filter `telnet`
+- look for `info : Telnet Data..[Malformed Packet]`
+<img width="1229" height="706" alt="Screenshot 2025-10-01 161014" src="https://github.com/user-attachments/assets/b7ca471c-6027-4267-a06b-50a15ffb4a86" />
+<img width="1002" height="859" alt="Screenshot 2025-10-01 161643" src="https://github.com/user-attachments/assets/4ed0102c-6f98-4970-bfd2-0fb7df7a82e7" />
+
+---
+## Soal 12
+> Eru mencurigai Melkor menjalankan beberapa layanan terlarang di node-nya. Lakukan pemindaian port sederhana dari node Eru ke node Melkor menggunakan Netcat (nc) untuk memeriksa port 21, 80, dalam keadaan terbuka dan port rahasia 666 dalam keadaan tertutup.
+
+- in Eru
+```
+apt update && apt install netcat
+```
+- in node Melkor
+```c
+apt install -y iptables
+
+nc -l 21 >/dev/null 2>&1 &
+nc -l 80 >/dev/null 2>&1 &
+iptables -I INPUT -p tcp --dport 666 -j REJECT
+```
+- node Eru
+nc -zv 10.66.1.2 21 80 666
+<img width="904" height="141" alt="Screenshot 2025-10-01 164417" src="https://github.com/user-attachments/assets/4b07e6c6-21ce-4cb3-9631-f8befe4b4f24" />
+<img width="843" height="116" alt="Screenshot 2025-10-01 164425" src="https://github.com/user-attachments/assets/de4ca6dd-1bcc-4fe8-8b3f-a1735c5b081d" />
+
+---
+## Soal 13
+> Setelah insiden penyadapan Telnet, Eru memerintahkan semua koneksi administratif harus menggunakan SSH (Secure Shell) untuk mengamankan jaringan. Lakukan koneksi SSH dari node Varda ke Eru. Tangkap sesi tersebut menggunakan Wireshark. Analisis dan jelaskan mengapa username dan password tidak dapat dilihat seperti pada sesi Telnet. Tunjukkan paket-paket terenkripsi dalam hasil capture sebagai bukti keamanan SSH.
+
+- in Eru
+```c
+apt update && apt install -y openssh-server
+service ssh start
+```
+```
+adduser <test>
+psswd <test>
+```
+- start capture on wireshark
+
+- Node Varda
+```c
+apt install -y openssh-server
+ssh <test>@10.66.1.1
+```
+- stop capture on wireshark
+<img width="1181" height="379" alt="Screenshot 2025-10-04 134752" src="https://github.com/user-attachments/assets/3fb99a15-0e63-46ec-80de-747c89ba56c3" />
+<img width="993" height="859" alt="Screenshot 2025-10-01 165654" src="https://github.com/user-attachments/assets/85719d56-f15f-41f7-9ada-be3f69edd38b" />
 
 ---
 ## Soal 14
