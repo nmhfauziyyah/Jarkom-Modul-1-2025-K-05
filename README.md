@@ -220,7 +220,9 @@ nc -l 80 >/dev/null 2>&1 &
 iptables -I INPUT -p tcp --dport 666 -j REJECT
 ```
 - node Eru
+```C
 nc -zv 10.66.1.2 21 80 666
+```
 <img width="904" height="141" alt="Screenshot 2025-10-01 164417" src="https://github.com/user-attachments/assets/4b07e6c6-21ce-4cb3-9631-f8befe4b4f24" />
 <img width="843" height="116" alt="Screenshot 2025-10-01 164425" src="https://github.com/user-attachments/assets/de4ca6dd-1bcc-4fe8-8b3f-a1735c5b081d" />
 
