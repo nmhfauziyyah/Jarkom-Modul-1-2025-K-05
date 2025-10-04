@@ -1,4 +1,4 @@
-<img width="814" height="266" alt="Screenshot 2025-09-30 023123" src="https://github.com/user-attachments/assets/402fd5b9-ec7e-4c3e-a3f2-7dfa8010f781" /># Jarkom-Modul-1-2025-K-05
+# Jarkom-Modul-1-2025-K-05
 
 |No|Nama anggota|NRP|
 |---|---|---|
